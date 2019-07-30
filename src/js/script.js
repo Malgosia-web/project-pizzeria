@@ -80,6 +80,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelectorAll(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -162,13 +163,25 @@
             price -= option.price;
             /* deduct price of option from price */
           }
+
+
+          const productImages = thisProduct.data.images;
+          const optionSelectedImage = ...
+          console.log('image', productImages);
+          for(let productImage of productImages){
+              if(productImage == optionSelectedImage){
+              productImage.classList.add(classNames.menuProduct.imageVisible);
+              } else {
+              productImage.classList.remove(classNames.menuProduct.imageVisible);
+              }
+          }
           /* END ELSE IF: if option is not selected and option is default */
         }
         /* END LOOP: for each optionId in param.options */
       }
       /* END LOOP: for each paramId in thisProduct.data.params */
       /* set the contents of thisProduct.priceElem to be the value of variable price */
-    thisProduct.priceElem.innerHTML = price;
+      thisProduct.priceElem.innerHTML = price;
     }
   }
 
