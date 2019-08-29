@@ -355,8 +355,8 @@
       const thisCart = this;
       const url = settings.db.url + '/' + settings.db.order;
       const payload = {
-        phone: thisCart.phone,
-        address: thisCart.address,
+        phone: thisCart.phone.value,
+        address: thisCart.address.value,
         deliveryFee: thisCart.deliveryFee,
         totalNumber: thisCart.totalNumber,
         subtotalPrice: thisCart.subtotalPrice,
@@ -364,7 +364,7 @@
         products: [],
       };
       for(let product of thisCart.products){
-        payload.products.push(CartProduct.getData);
+        payload.products.push(product.getData());
       }
 
       const options = {
@@ -431,6 +431,15 @@
     }
     getData(){
       const thisCartProduct = this;
+
+      return {
+        id: thisCartProduct.id,
+        amount: thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        params: thisCartProduct.sparams,
+      };
+
 
     }
     getElements(element){
