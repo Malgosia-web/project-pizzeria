@@ -5,7 +5,8 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2015
+        "ecmaVersion": 2015,
+        "sourceType": "module"
     },
     "rules": {
         "indent": [
@@ -14,7 +15,7 @@
         ],
         "linebreak-style": [
             "error",
-            "unix"
+            "windows"
         ],
         "quotes": [
             "error",
