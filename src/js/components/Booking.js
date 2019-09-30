@@ -14,6 +14,7 @@ class Booking{
     thisBooking.addTableListeners();
     thisBooking.initReservation();
   }
+
   addTableListeners() {
     const thisBooking = this;
 
@@ -33,25 +34,26 @@ class Booking{
   }
   sendBooking(){
     const thisBooking = this;
-    thisBooking.phone = document.querySelector('[name="phone"]');
-    thisBooking.address = document.querySelector('[name="address"]');
-    thisBooking.starters = document.getElementsByName('starter');
 
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
-      phone: thisBooking.phone.value,
-      address: thisBooking.address.value,
-      people: thisBooking.peopleAmount.value,
-      hour: thisBooking.hourPicker.value,
+      id: '',
       date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: parseInt(thisBooking.table),
+      duration: thisBooking.hoursAmount.value,
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+      people: thisBooking.peopleAmount.value,
       starters: [],
-      table: thisBooking.table,
     };
-    for (let starter of thisBooking.starters) {
+
+    for (let starter of thisBooking.dom.starters) {
       if (starter.checked === true) {
         payload.starters.push(starter.value);
       }
     }
+
     const options = {
       method: 'POST',
       headers: {
@@ -65,15 +67,20 @@ class Booking{
       }).then(function(parsedResponse){
         console.log('parsedResponse', parsedResponse);
       });
+
+    thisBooking.getData();
   }
-  /*initReservation() {
+
+  initReservation() {
     const thisBooking = this;
-    thisBooking.... =
-    thisBooking......addEventListener('submit', function(event){
+
+    thisBooking.dom.form.addEventListener('submit', function(event){
       event.preventDefault();
       thisBooking.sendBooking();
     });
-  }*/
+  }
+
+
   getData(){
     const thisBooking = this;
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
@@ -116,7 +123,7 @@ class Booking{
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-        //console.log(bookings);
+        console.log(bookings);
         //console.log(eventsCurrent);
         //console.log(eventsRepeat);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
@@ -141,7 +148,6 @@ class Booking{
         }
       }
     }
-    console.log('thisBooking.booked', thisBooking.booked);
 
     thisBooking.updateDOM();
   }
@@ -203,6 +209,10 @@ class Booking{
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
   }
 
   initWidgets(){

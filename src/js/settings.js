@@ -61,6 +61,10 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    form: '.booking-form',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    starters: '[name="starter"]',
   },
   nav: {
     links: '.main-nav a',
