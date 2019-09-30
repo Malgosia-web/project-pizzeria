@@ -68,10 +68,10 @@ class Booking{
   }
   /*initReservation() {
     const thisBooking = this;
-    thisBooking.dom.button =
-    thisBooking.dom.button.addEventListener('submit', function(event){
+    thisBooking.... =
+    thisBooking......addEventListener('submit', function(event){
       event.preventDefault();
-      thisBooking.sendOrder();
+      thisBooking.sendBooking();
     });
   }*/
   getData(){
